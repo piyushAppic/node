@@ -5,6 +5,7 @@ const PORT = 3000
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 const userRouter = require("./routers/userRouter")
 app.use("/api/v1/user", userRouter)

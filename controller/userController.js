@@ -48,4 +48,14 @@ const addComment = async(req, res) => {
     }
 }
 
-module.exports = { createUser, addPost, addComment }
+const uploadFiles = async(req, res) => {
+    try{
+        console.log(req.files, "files")
+        res.json({message: "files uploaded succssfully!!"})
+
+    }catch(err){
+        res.json({message:err.message})
+    }
+}
+
+module.exports = { createUser, addPost, addComment, uploadFiles }
