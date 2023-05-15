@@ -1,6 +1,34 @@
 const express = require("express")
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/', limits: { fileSize: 1024*1024*5 } }) // fileSize: bytes{1024 bytes = 1kb}
+const fs = require('fs');
+
+const uploadFolder = 'uploads/';
+
+// Create the upload folder if it doesn't exist
+if (!fs.existsSync(uploadFolder)) {
+  fs.mkdirSync(uploadFolder);
+}
+
+
+// Create a storage engine
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      // Specify the destination folder where the file will be saved
+      cb(null, uploadFolder);
+    },
+    filename: function (req, file, cb) {
+      // Rename the file using a timestamp and the original file extension
+      const timestamp = Date.now();
+      const originalExtension = file.originalname.split('.').pop();
+      const fileName = `${timestamp}.${originalExtension}`;
+  
+      cb(null, fileName);
+    }
+  });
+
+const upload = multer({ storage: storage });
+
+// const upload = multer({ dest: 'uploads/', limits: { fileSize: 1024*1024*5 }, filename: Date.now().toString() + '-' + file.originalname }) // fileSize: bytes{1024 bytes = 1kb}
 
 const router = express.Router()
 
