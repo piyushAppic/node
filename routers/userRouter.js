@@ -32,19 +32,23 @@ const upload = multer({ storage: storage });
 
 const router = express.Router()
 
-const { createUser, addPost, addComment, uploadFiles } = require("../controller/userController")
+const { createUser, login, addPost, addComment, uploadFiles } = require("../controller/userController")
 const { findUserDeatilsByPost, findUserDeatilsByComment } = require("../controller/populate/userFetchByRef")
 
+// auth middleware
+const authenticateToken = require("../middlewares/userVerifiy")
+
 router.post("/createuser", createUser)
-router.post("/addpost", addPost)
-router.post("/addcomment", addComment)
+router.post("/login", login)
+router.post("/addpost",authenticateToken, addPost)
+router.post("/addcomment",authenticateToken, addComment)
 
 // router for populating data
-router.post("/populateByPost", findUserDeatilsByPost)
-router.post("/populateByComment", findUserDeatilsByComment) 
+router.post("/populateByPost",authenticateToken, findUserDeatilsByPost)
+router.post("/populateByComment",authenticateToken, findUserDeatilsByComment) 
 
 // files access and save
-router.post("/upload",upload.array('photos', 2), uploadFiles)
+router.post("/upload",authenticateToken,upload.array('photos', 2), uploadFiles)
 
 
 
