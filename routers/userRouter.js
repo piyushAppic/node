@@ -34,6 +34,7 @@ const router = express.Router()
 
 const { createUser, login, addPost, addComment, uploadFiles } = require("../controller/userController")
 const { findUserDeatilsByPost, findUserDeatilsByComment } = require("../controller/populate/userFetchByRef")
+const { paymentHomePage, paymentResult } = require("../payment/payment")
 
 // auth middleware
 const authenticateToken = require("../middlewares/userVerifiy")
@@ -49,6 +50,10 @@ router.post("/populateByComment",authenticateToken, findUserDeatilsByComment)
 
 // files access and save
 router.post("/upload",authenticateToken,upload.array('photos', 2), uploadFiles)
+
+// payment router
+router.get("/payment", paymentHomePage)
+router.post("/create-payment-intent", paymentResult)
 
 
 
