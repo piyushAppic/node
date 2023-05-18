@@ -1,9 +1,10 @@
 const express = require("express")
 const app = express()
 const path = require('path')
+require('dotenv').config()
 
 require("./db")
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 const CorsPermission = require("./middlewares/corsPermission")
 app.use(CorsPermission);
