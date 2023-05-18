@@ -5,8 +5,8 @@ const path = require('path')
 require("./db")
 const PORT = 3000
 
-// const CorsPermission = require("./middlewares/corsPermission")
-// app.use(CorsPermission);
+const CorsPermission = require("./middlewares/corsPermission")
+app.use(CorsPermission);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

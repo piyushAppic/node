@@ -54,7 +54,6 @@ router.post("/upload",authenticateToken,upload.array('photos', 2), uploadFiles)
 // payment router
 router.get("/payment", paymentHomePage)
 router.post("/create-payment-intent", paymentResult)
-// router.post("/create-payment-intent", paymentResult)
 
 
 
