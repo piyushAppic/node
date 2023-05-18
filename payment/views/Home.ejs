@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stripe Payment Demo</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <h3>Welcome to Payment Gateway</h3>
+  <form action="" method="POST">
+    <input type="number" name="amount" placeholder="Amount" required>
+    <button type="submit">Pay with Stripe</button>
+  </form>
+
+  <script>
+    var stripe = Stripe('<%= key %>');
+    var form = document.querySelector('form');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      fetch('/api/v1/user/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: form.amount.value }),
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      // .then(function(data) {
+      //   stripe.confirmCardPayment(data.clientSecret, {
+      //     payment_method: {
+      //       card: elements.getElement('card'),
+      //     },
+      //   })
+      //   .then(function(result) {
+      //     if (result.error) {
+      //       console.error(result.error.message);
+      //     } else {
+      //       console.log(result.paymentIntent);
+      //     }
+        // });
+      // });
+    });
+  </script>
+</body>
+</html>
