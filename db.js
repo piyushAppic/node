@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-mongoose.connect("mongodb+srv://piyush:piyush@cluster0.7ajvqnf.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGO_URI)
 
 const database = mongoose.connection;
 database.on('error', (error) => {
