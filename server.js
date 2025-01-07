@@ -21,7 +21,7 @@ const userRouter = require("./routers/userRouter")
 app.use("/api/v1/user", userRouter)
 
 app.use("*", (req, res)=> {
-    res.send("Hello 404 page")
+    res.send("Hello 404 page ")
 })
 
 app.listen(PORT, () => {
